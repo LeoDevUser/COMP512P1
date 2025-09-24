@@ -5,6 +5,8 @@ import java.rmi.RemoteException;
 
 import java.util.*;
 
+import Server.Common.RMItem;
+
 /** 
  * Simplified version from CSE 593 Univ. of Washington
  *
@@ -23,6 +25,21 @@ import java.util.*;
 
 public interface IResourceManager extends Remote 
 {
+    /*
+     * Reads a data item 
+     */
+    public RMItem readData(String key)
+    throws RemoteException;
+    /*
+     * Writes a data item 
+     */
+    public void writeData(String key, RMItem value)
+    throws RemoteException;
+    /*
+     * Deletes a data item 
+     */
+    public void removeData(String key)
+    throws RemoteException;
     /**
      * Add seats to a flight.
      *

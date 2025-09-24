@@ -22,7 +22,7 @@ public class ResourceManager implements IResourceManager
 	}
 
 	// Reads a data item
-	protected RMItem readData(String key)
+	public RMItem readData(String key)
 	{
 		synchronized(m_data) {
 			RMItem item = m_data.get(key);
@@ -34,7 +34,7 @@ public class ResourceManager implements IResourceManager
 	}
 
 	// Writes a data item
-	protected void writeData(String key, RMItem value)
+	public void writeData(String key, RMItem value)
 	{
 		synchronized(m_data) {
 			m_data.put(key, value);
@@ -42,7 +42,7 @@ public class ResourceManager implements IResourceManager
 	}
 
 	// Remove the item out of storage
-	protected void removeData(String key)
+	public void removeData(String key)
 	{
 		synchronized(m_data) {
 			m_data.remove(key);
