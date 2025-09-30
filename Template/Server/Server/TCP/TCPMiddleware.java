@@ -229,6 +229,10 @@ public class TCPMiddleware extends Middleware {
 				return deleteRooms((String) params[0]);
 			case "queryFlight":
 				return queryFlight((Integer) params[0]);
+			case "queryCars":
+				return queryCars((String) params[0]);
+			case "queryRooms":
+				return queryRooms((String) params[0]);
 			case "queryFlightPrice":
 				return queryFlightPrice((Integer) params[0]);
 			case "queryCarsPrice":
