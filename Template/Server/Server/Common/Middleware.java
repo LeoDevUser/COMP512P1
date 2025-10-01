@@ -246,7 +246,7 @@ public abstract class Middleware implements IResourceManager {
 		}
 
 		if (car) {reserveCar(customerID, location);}
-		else if (room) {reserveRoom(customerID, location);}
+		if (room) {reserveRoom(customerID, location);}
 
 		return true;
     }

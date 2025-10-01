@@ -374,10 +374,33 @@ public class ResourceManager implements IResourceManager
 	}
 
 	// Reserve bundle 
-	public boolean bundle(int customerId, Vector<String> flightNumbers, String location, boolean car, boolean room) throws RemoteException
-	{
-		return false;
-	}
+	public boolean bundle(int customerID, Vector<String> flightNumbers, String location, boolean car, boolean room) throws RemoteException {
+    //Reserve all flights
+    for (String flightStr: flightNumbers) {
+        int flightNum = Integer.valueOf(flightStr);
+        if (!reserveFlight(customerID, flightNum)) {
+            Trace.warn("RM::bundle() - Failed to reserve flight " + flightNum + " for customer " + customerID);
+            return false;
+        }
+    }
+
+    if (car) {
+        if (!reserveCar(customerID, location)) {
+            Trace.warn("RM::bundle() - Failed to reserve car at " + location + " for customer " + customerID);
+            return false;
+        }
+    }
+    
+    if (room) {
+        if (!reserveRoom(customerID, location)) {
+            Trace.warn("RM::bundle() - Failed to reserve room at " + location + " for customer " + customerID);
+            return false;
+        }
+    }
+
+    Trace.info("RM::bundle() - Successfully reserved bundle for customer " + customerID);
+    return true;
+}
 
 	public String getName() throws RemoteException
 	{

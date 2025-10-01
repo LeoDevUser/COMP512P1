@@ -5,6 +5,7 @@ import Server.Common.*;
 
 import java.io.*;
 import java.net.*;
+import java.rmi.RemoteException;
 import java.util.*;
 
 public class TCPResourceManager extends ResourceManager {
@@ -115,62 +116,66 @@ public class TCPResourceManager extends ResourceManager {
 	}
 
 	private Object executeMethod(String methodName, Object[] params) throws Exception {
-		switch(methodName){
-			case "newCustomer":
-				if (params.length == 0) {
-					return newCustomer();
-				} else {
-					return newCustomer((Integer) params[0]);
-				}
-			case "deleteCustomer":
-				return deleteCustomer((Integer) params[0]);
-			case "addFlight":
-				return addFlight((Integer) params[0],(Integer) params[1],(Integer) params[2]);
-			case "addCars":
-				return addCars((String) params[0], (Integer) params[1], (Integer) params[2]);
-			case "addRooms":
-				return addRooms((String) params[0], (Integer) params[1], (Integer) params[2]);
-			case "deleteFlight":
-				return deleteFlight((Integer) params[0]);
-			case "deleteCars":
-				return deleteCars((String) params[0]);
-			case "deleteRooms":
-				return deleteRooms((String) params[0]);
-			case "queryFlight":
-				return queryFlight((Integer) params[0]);
-			case "queryCars":
-				return queryCars((String) params[0]);
-			case "queryRooms":
-				return queryRooms((String) params[0]);
-			case "queryFlightPrice":
-				return queryFlightPrice((Integer) params[0]);
-			case "queryCarsPrice":
-				return queryCarsPrice((String) params[0]);
-			case "queryRoomsPrice":
-				return queryRoomsPrice((String) params[0]);
-			case "queryCustomerInfo":
-				return queryCustomerInfo((Integer) params[0]);
-			case "reserveFlight":
-				return reserveFlight((Integer) params[0], (Integer) params[1]);
-			case "reserveCar":
-				return reserveCar((Integer) params[0], (String) params[1]);
-			case "reserveRoom":
-				return reserveRoom((Integer) params[0], (String) params[1]);
-			case "bundle":
-				return bundle((Integer) params[0], (Vector<String>) params[1], (String) params[2], (boolean) params[3], (boolean) params[4]);
-			case "getName":
-				return getName();
-			case "readData":
-				return readData((String) params[0]);
-			case "writeData":
-				writeData((String) params[0], (RMItem) params[1]);
-				return null;
-			case "removeData":
-				removeData((String) params[0]);
-				return null;
-			default:
-				throw new UnsupportedOperationException("Unknown method: " + methodName);
+		try {
+			switch(methodName){
+				case "newCustomer":
+					if (params.length == 0) {
+						return newCustomer();
+					} else {
+						return newCustomer((Integer) params[0]);
+					}
+				case "deleteCustomer":
+					return deleteCustomer((Integer) params[0]);
+				case "addFlight":
+					return addFlight((Integer) params[0],(Integer) params[1],(Integer) params[2]);
+				case "addCars":
+					return addCars((String) params[0], (Integer) params[1], (Integer) params[2]);
+				case "addRooms":
+					return addRooms((String) params[0], (Integer) params[1], (Integer) params[2]);
+				case "deleteFlight":
+					return deleteFlight((Integer) params[0]);
+				case "deleteCars":
+					return deleteCars((String) params[0]);
+				case "deleteRooms":
+					return deleteRooms((String) params[0]);
+				case "queryFlight":
+					return queryFlight((Integer) params[0]);
+				case "queryCars":
+					return queryCars((String) params[0]);
+				case "queryRooms":
+					return queryRooms((String) params[0]);
+				case "queryFlightPrice":
+					return queryFlightPrice((Integer) params[0]);
+				case "queryCarsPrice":
+					return queryCarsPrice((String) params[0]);
+				case "queryRoomsPrice":
+					return queryRoomsPrice((String) params[0]);
+				case "queryCustomerInfo":
+					return queryCustomerInfo((Integer) params[0]);
+				case "reserveFlight":
+					return reserveFlight((Integer) params[0], (Integer) params[1]);
+				case "reserveCar":
+					return reserveCar((Integer) params[0], (String) params[1]);
+				case "reserveRoom":
+					return reserveRoom((Integer) params[0], (String) params[1]);
+				case "bundle":
+					return bundle((Integer) params[0], (Vector<String>) params[1], (String) params[2], (boolean) params[3], (boolean) params[4]);
+				case "getName":
+					return getName();
+				case "readData":
+					return readData((String) params[0]);
+				case "writeData":
+					writeData((String) params[0], (RMItem) params[1]);
+					return null;
+				case "removeData":
+					removeData((String) params[0]);
+					return null;
+				default:
+					throw new UnsupportedOperationException("Unknown method: " + methodName);
+			}
+		} catch (Exception e) {
+			Trace.error("Middleware: Error executing method '" + methodName + "': " + e.getMessage());
+			throw e;
 		}
-		
 	}
 }

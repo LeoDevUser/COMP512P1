@@ -1,5 +1,5 @@
 #!/bin/bash
-# Usage: ./run_servers.sh [machine1] [machine2] [machine3] [machine4]
+# Usage: ./run_tcp_servers.sh [machine1] [machine2] [machine3] [machine4]
 # If no machines specified, defaults to localhost for all
 
 # Default to localhost for all machines
@@ -14,11 +14,17 @@ MACHINE4="${4:-$DEFAULT_MACHINE}"
 # Get current directory
 CURRENT_DIR="$(pwd)"
 
-echo "Starting RMI servers on:"
-echo "  Flights:    $MACHINE1"
-echo "  Cars:       $MACHINE2"
-echo "  Rooms:      $MACHINE3"
-echo "  Middleware: $MACHINE4"
+# Port configuration
+FLIGHT_PORT=4014
+CAR_PORT=5014
+ROOM_PORT=6014
+MIDDLEWARE_PORT=3014
+
+echo "Starting TCP servers on:"
+echo "  Flights:    $MACHINE1:$FLIGHT_PORT"
+echo "  Cars:       $MACHINE2:$CAR_PORT"
+echo "  Rooms:      $MACHINE3:$ROOM_PORT"
+echo "  Middleware: $MACHINE4:$MIDDLEWARE_PORT"
 
 # Helper function to create command based on whether it's localhost or remote
 create_command() {
@@ -35,10 +41,10 @@ create_command() {
 }
 
 # Create commands for each server
-CMD1=$(create_command "$MACHINE1" "./run_server.sh Flights")
-CMD2=$(create_command "$MACHINE2" "./run_server.sh Cars")
-CMD3=$(create_command "$MACHINE3" "./run_server.sh Rooms")
-CMD4=$(create_command "$MACHINE4" "sleep 0.5s; ./run_middleware.sh Middleware $MACHINE1 $MACHINE2 $MACHINE3")
+CMD1=$(create_command "$MACHINE1" "./run_tcp_server.sh Flights ${FLIGHT_PORT}")
+CMD2=$(create_command "$MACHINE2" "./run_tcp_server.sh Cars ${CAR_PORT}")
+CMD3=$(create_command "$MACHINE3" "./run_tcp_server.sh Rooms ${ROOM_PORT}")
+CMD4=$(create_command "$MACHINE4" "sleep 0.5s; ./run_tcp_middleware.sh Middleware ${MIDDLEWARE_PORT} ${MACHINE1} ${FLIGHT_PORT} ${MACHINE2} ${CAR_PORT} ${MACHINE3} ${ROOM_PORT}")
 
 tmux new-session \; \
 	split-window -h \; \

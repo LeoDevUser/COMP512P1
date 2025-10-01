@@ -18,7 +18,10 @@ public class TCPClient extends Client {
             s_serverPort = Integer.parseInt(args[1]);
         }
         if (args.length > 2) {
-            System.err.println("Usage: java Client.TCPClient [server_hostname [server_port]]");
+            s_serverName = args[2];
+        }
+        if (args.length > 3) {
+            System.err.println("Usage: java Client.TCPClient [server_hostname [server_port] [server_name]]");
             System.exit(1);
         }
         
