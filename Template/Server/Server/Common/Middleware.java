@@ -242,11 +242,11 @@ public abstract class Middleware implements IResourceManager {
     public boolean bundle(int customerID, Vector<String> flightNumbers, String location, boolean car, boolean room) throws RemoteException {
         for (String flightStr: flightNumbers) {
 			int flightNum = Integer.valueOf(flightStr);
-			reserveFlight(customerID, flightNum);
+			if(!reserveFlight(customerID, flightNum)) return false;
 		}
 
-		if (car) {reserveCar(customerID, location);}
-		if (room) {reserveRoom(customerID, location);}
+		if (car) {if(!reserveCar(customerID, location)) return false;}
+		if (room) {if(!reserveRoom(customerID, location)) return false;}
 
 		return true;
     }

@@ -429,8 +429,24 @@ public abstract class Client
 		return (Integer.valueOf(string)).intValue();
 	}
 
-	public static boolean toBoolean(String string)// throws Exception
-	{
-		return (Boolean.valueOf(string)).booleanValue();
+	public static boolean toBoolean(String string) {
+		if (string == null) {
+			return false;
+		}
+
+		String s = string.trim().toUpperCase();
+
+		// Check for true values
+		if (s.equals("TRUE") || s.equals("T") || s.equals("YES") || s.equals("Y") || s.equals("1")) {
+			return true;
+		}
+
+		// Check for false values
+		if (s.equals("FALSE") || s.equals("F") || s.equals("NO") || s.equals("N") || s.equals("0")) {
+			return false;
+		}
+
+		// Default to Java's Boolean.valueOf for other cases
+		return Boolean.valueOf(string).booleanValue();
 	}
 }
