@@ -99,8 +99,8 @@ public class RMIMiddleware extends Middleware {
 					break;
 				}
 				catch (NotBoundException|RemoteException e) {
-				System.out.println("DEBUG: Exception caught: " + e.getClass().getName() + ": " + e.getMessage());
-				e.printStackTrace();
+					//System.out.println("DEBUG: Exception caught: " + e.getClass().getName() + ": " + e.getMessage());
+					//e.printStackTrace();
 					if (first) {
 						System.out.println("Waiting for '" + s_flightServerName + "' server [" + s_flightHost + ":" + port + "/" + s_rmiPrefix + s_flightServerName + "]");
 						first = false;
@@ -118,8 +118,8 @@ public class RMIMiddleware extends Middleware {
 					break;
 				}
 				catch (NotBoundException|RemoteException e) {
-				System.out.println("DEBUG: Exception caught: " + e.getClass().getName() + ": " + e.getMessage());
-				e.printStackTrace();
+					//System.out.println("DEBUG: Exception caught: " + e.getClass().getName() + ": " + e.getMessage());
+					//e.printStackTrace();
 					if (first) {
 						System.out.println("Waiting for '" + s_carServerName + "' server [" + s_carHost + ":" + port + "/" + s_rmiPrefix + s_carServerName + "]");
 						first = false;
@@ -137,8 +137,8 @@ public class RMIMiddleware extends Middleware {
 					break;
 				}
 				catch (NotBoundException|RemoteException e) {
-				System.out.println("DEBUG: Exception caught: " + e.getClass().getName() + ": " + e.getMessage());
-				e.printStackTrace();
+					//System.out.println("DEBUG: Exception caught: " + e.getClass().getName() + ": " + e.getMessage());
+					//e.printStackTrace();
 					if (first) {
 						System.out.println("Waiting for '" + s_roomServerName + "' server [" + s_roomHost + ":" + port + "/" + s_rmiPrefix + s_roomServerName + "]");
 						first = false;
